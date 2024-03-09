@@ -1,0 +1,29 @@
+[task]
+name = "Task"
+template = "S_templates/template.S"
+
+description = '''
+# Description
+The task description
+'''
+
+[arguments]
+run = "--d-regs --dump-cycles --cycle-limit 1000"
+
+[[testcases]]
+name = "Testcase 1"
+private = true
+
+[[testcases.reference_regs]]
+a1 = 2
+a2 = 4
+a3 = 6
+
+[[testcases.starting_mem]]
+array_start = [2, 4]
+
+[[testcases.reference_mem]]
+array_start = [2, 4, 6]
+
+[score]
+testcase = "Testcase 1"

@@ -194,6 +194,42 @@ def get_user(username):
 			\end{minted}
 		\end{frame}
 
+		\begin{frame}{Submission evaluation}
+			Each of the submissions is being evaluated by a \texttt{qtrvsim\_cli} python wrapper \texttt{qtrvsim.py}. \par
+	
+			For each task, there is a \texttt{.toml} file, which is parsed using an evaluator script. The parsed data is used to create a new QtRvSim instance, which evaluates all the testcases in the task file. \par
+	
+			The result, score, and the log is then displayed to the user.
+		\end{frame}
+	
+		\begin{frame}[fragile]
+			\tiny
+			\inputminted{python}{examples/5/evaluate.py}
+		\end{frame}
+
+		\begin{frame}[fragile]
+			\tiny
+			\inputminted{toml}{examples/5/task.toml}
+		\end{frame}
+
+		\begin{frame}{Advanced tasks}
+			The evaluator is also able to set a cache for the task, whose parameters are configurable as a part of the task. This is done by setting the maximum cache size for the task, users are then required to configure the cache parameters. \par
+
+			Serial input and output can also be used. \par
+
+			It is also possible, to create a task in \texttt{C}, but this also requires for a custom Makefile to be provided to the taskfile. If custom files need to be present at compile time, the can also be added. \par
+		\end{frame}
+
+		\begin{frame}[fragile]
+			\small
+			\inputminted{toml}{examples/5/cache.toml}
+		\end{frame}
+
+		\begin{frame}[fragile]
+			\tiny
+			\inputminted{toml}{examples/5/complex.toml}
+		\end{frame}
+
 	\section{Mini Competition}
 
 	\begin{frame}{Mini Competition}
@@ -204,6 +240,18 @@ def get_user(username):
 		For each task the best five users will acquire $(6 - p)$ points, where p is the place they finished (according to the cycles needed to execute their solution). \par
 
 		We offer FEE CTU merch for the best users, who submit their solutions before TODO:17.3. 15:00. \par
+	\end{frame}
+
+	\section{References}
+
+	\begin{frame}{References}
+		Links and references: \par
+		{\centering \texttt{\href{https://flask.palletsprojects.com/en/3.0.x/}{Flask}} \par}
+		{\centering \texttt{\href{http://eval.comparch.edu.cvut.cz}{eval.comparch.edu.cvut.cz}} \par}
+		{\centering \texttt{\href{http://comparch.edu.cvut.cz}{comparch.edu.cvut.cz}} \par}
+		{\centering \texttt{\href{https://github.com/cvut/qtrvsim}{QtRvSim repository}} \par}
+		{\centering \texttt{\href{https://gitlab.fel.cvut.cz/b35apo/qtrvsim-eval-web}{Web Eval repository}} \par}
+		{\centering \texttt{\href{https://swpelc.eu}{Jakub Pelc}} \par}
 	\end{frame}
 
 \end{document}

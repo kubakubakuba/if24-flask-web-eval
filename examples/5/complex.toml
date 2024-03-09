@@ -1,0 +1,30 @@
+[task]
+name = "C example"
+template = "S_templates/example.c"
+c_solution = true
+
+[[testcases]]
+name = "test1"
+
+[[testcases.input_uart]]
+uart = "111\n222\n"
+
+[[testcases.reference_uart]]
+uart = "333\n"
+
+[score]
+testcase = "test1"
+
+[make]
+Makefile="""
+#provide a rule that will compile the solution into a binary `submission`
+#please provide a clean rule, this is run after evaluation
+clean:
+	rm -f *.o *.a $(OBJECTS) $(TARGET_EXE) depend
+"""
+
+[[files]]
+name = "crt0local.S"
+code = """
+/* minimal replacement of crt0.o which is else provided by C library */
+"""

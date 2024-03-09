@@ -1,6 +1,7 @@
 SRC = main
 EXAMPLES = $(wildcard examples/*/app.py)
 EXAMPLES += $(wildcard examples/*/templates/*.html)
+EXAMPLES += $(wildcard examples/*/*.toml)
 
 default: $(SRC).pdf
 
@@ -11,3 +12,8 @@ default: $(SRC).pdf
 
 clean:
 	rm -f $(SRC).pdf $(SRC).aux $(SRC).log $(SRC).bbl $(SRC).blg $(SRC).nav $(SRC).out $(SRC).snm $(SRC).toc
+
+git_%: clean
+	git add .
+	git commit -m "$*"
+	git push

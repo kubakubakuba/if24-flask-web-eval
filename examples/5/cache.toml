@@ -1,0 +1,8 @@
+[task]
+name = "Cache example"
+template = "S_templates/cache.S"
+cache_max_size = 16
+
+[arguments]
+run = "--dump-cycles --read-time 10 --cycle-limit 5000 \
+	--write-time 10 --burst-time 2"

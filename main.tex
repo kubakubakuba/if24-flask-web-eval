@@ -1,0 +1,68 @@
+\documentclass{beamer}
+\usepackage{minted}
+\usetheme{metropolis}
+\title{Flask web evaluation for QtRvSim}
+% March 16th 2024
+\date{16.3.2024}
+\author{Jakub Pelc}
+\institute{Faculty of Electrical Engineering, Czech Technical University in Prague}
+\begin{document}
+	\maketitle
+	\section{A little bit about Flask}
+	
+	\begin{frame}{Flask}
+		Flask is a micro web framework written in Python. It provides a simple way to create web applications. \par
+
+		As opposed to Django, Flask is not an all-inclusive framework. It is designed to be simple and easy to use. \par
+
+		To start creating a web application, the only thing you need to do is to install Flask and start writing your Python code.
+
+		To run the local webserver, the command \texttt{flask run} is used.
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\begin{minted}{python}
+	from flask import Flask
+
+	app = Flask(__name__)
+
+	@app.route("/")
+	def hello():
+		return "<p>Hello, World!</p>"
+		\end{minted}
+	\end{frame}
+
+	\begin{frame}{Loading template files}
+		We can utilize Flask to load HTML templates, instead of writing all of the HTML code in the \texttt{app.py} file. \par
+		
+		We can also pass variables to the template, and detect which HTTP method was used to access the page.
+	\end{frame}
+
+
+	\begin{frame}[fragile]
+		\small
+		\inputminted{python}{examples/2/app.py}
+	\end{frame}
+
+	\begin{frame}{Jinja2 templating}
+		This is still not ideal, now we need to create a complete HTML page for every route. \par
+
+		We will now use the Jinja2 templating engine to create a base template, and then extend it for every route.
+
+		We can also add static files, such as CSS stylesheets, or images. \par
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\small
+		\inputminted{html}{examples/3/templates/base.html}
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\small
+		\inputminted{html}{examples/3/templates/register.html}
+	\end{frame}
+
+	
+
+\end{document}

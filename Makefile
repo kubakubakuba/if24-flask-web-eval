@@ -13,7 +13,7 @@ default: $(SRC).pdf
 clean:
 	rm -f $(SRC).pdf $(SRC).aux $(SRC).log $(SRC).bbl $(SRC).blg $(SRC).nav $(SRC).out $(SRC).snm $(SRC).toc
 
-git_%: clean
+git_%:
 	git add .
 	git commit -m "$*"
 	git push

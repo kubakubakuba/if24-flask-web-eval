@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+Personal page
+{% endblock title %}
+
+{% block content %}
+<h1>Welcome to the personal page</h1>
+{% if logged_in %}
+	You are logged in as {{ session.user }} <br />
+{% else %}
+	You are not logged in <br />
+{% endif %}
+
+<a href="{{ url_for('index') }}">Back</a>
+{% endblock content %}

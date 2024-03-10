@@ -99,6 +99,8 @@
 		\inputminted{python}{examples/4/app.py}
 	\end{frame}
 
+	\section{Database}
+
 	\begin{frame}{Communication with the database}
 		In the web application, a PostgreSQL database is used. \par
 
@@ -194,8 +196,10 @@ def get_user(username):
 			\end{minted}
 		\end{frame}
 
+		\section{Evaluation using QtRvSim}
+
 		\begin{frame}{Submission evaluation}
-			Each of the submissions is being evaluated by a \texttt{qtrvsim\_cli} python wrapper \texttt{qtrvsim.py}. \par
+			Each of the submissions is being evaluated by a \texttt{qtrvsim\_cli} python wrapper \href{https://gitlab.fel.cvut.cz/b35apo/qtrvsim-eval-web/-/blob/main/evaluator/qtrvsim.py}{\texttt{qtrvsim.py}}. \par
 	
 			For each task, there is a \texttt{.toml} file, which is parsed using an evaluator script. The parsed data is used to create a new QtRvSim instance, which evaluates all the testcases in the task file. \par
 	
@@ -217,7 +221,7 @@ def get_user(username):
 
 			Serial input and output can also be used. \par
 
-			It is also possible, to create a task in \texttt{C}, but this also requires for a custom Makefile to be provided to the taskfile. If custom files need to be present at compile time, the can also be added. \par
+			It is also possible, to create a task in \texttt{C}, but this also requires a custom Makefile to be provided in the taskfile. If custom files need to be present at compile time, they can also be added. \par
 		\end{frame}
 
 		\begin{frame}[fragile]

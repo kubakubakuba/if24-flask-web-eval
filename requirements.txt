@@ -1,0 +1,10 @@
+#required for beamer minted theme
+pygments
+
+#flask examples requirements
+psycopg2-binary
+python-dotenv
+flask
+flask_mail
+toml
+markdown

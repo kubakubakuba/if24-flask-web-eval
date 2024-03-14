@@ -7,6 +7,7 @@ name = "webEvalEnv";
 venvDir = "./.venv";
 buildInputs = [
 	pp.pip
+	pkgs.zsh
 ];
 
 shellHook = ''
@@ -19,6 +20,8 @@ shellHook = ''
 	. $venvDir/bin/activate
 
 	pip install -r requirements.txt
+
+	exec zsh
 '';
 
 FLASK_APP = "app.py";

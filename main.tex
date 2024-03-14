@@ -19,15 +19,11 @@
 		The project needed to be rather simple, for it to allow easy modularity and optional modification in the future. It can be expanded by
 		more features, language support, or task types.
 	\end{frame}
-
-	\begin{frame}{GDPR}
-		We are not saving the email adresses of the users (due to GDPR), but during the registration process, the users are required to provide an email address for verification purposes. So how is that achieved?\par
-
-		The email address is saved as a salted \texttt{SHA-256} hash. This way, we can verify the email address, but we cannot reverse the hash to obtain the original email address. \par
-
-		This also allows us to send the user a password reset link, without having to store the email address in readable format. User always need to provide the email address, which is checked against the hash in the database.
-	\end{frame}
 	
+	\begin{frame}{User interface}
+		place images of task page and homepage with link to online version
+	\end{frame}
+
 	\section{A little bit about Flask}
 	
 	\begin{frame}{Flask}
@@ -35,10 +31,7 @@
 
 		As opposed to Django, Flask is not an all-inclusive framework. It is designed to be simple and easy to use. \par
 
-		To start creating a web application, the only thing you need to do is to install Flask and start writing your Python code.
-
-		To run the local webserver, the command \texttt{flask run} is used.
-
+		To start creating a web application, the only thing needed is to have Flask installed and to have a simple python script.
 	\end{frame}
 
 	\begin{frame}[fragile]
@@ -54,11 +47,11 @@
 	\end{frame}
 
 	\begin{frame}{Loading template files}
-		We can utilize Flask to load HTML templates, instead of writing all of the HTML code in the \texttt{app.py} file. \par
+		We can utilize Flask to load HTML templates, instead of writing all of our HTML code in the \texttt{app.py} file. \par
 		
-		These template file are to be located in the \texttt{templates} directory. \par
+		These template files should be located in the \texttt{templates} directory. \par
 
-		For this example, we will use the standard HTML.
+		For this example, we will use a standard HTML register page.
 	\end{frame}
 
 
@@ -68,11 +61,11 @@
 	\end{frame}
 
 	\begin{frame}{Jinja2 templating}
-		This is still not ideal, now we need to create a complete HTML page for every route. \par
+		This is still not ideal, as we need to create a completely new HTML page for every route. \par
 
-		We will now use the Jinja2 templating engine to create a base template, and then extend it for every route.
+		For this problem, we can utilize the Jinja2 templating engine to create a base template, and then inherit from this template.
 
-		We can also add static files, such as CSS stylesheets, or images. \par
+		Static files (such as CSS stylesheets, or images) can also be included. \par
 	\end{frame}
 
 	\begin{frame}[fragile]
@@ -86,9 +79,9 @@
 	\end{frame}
 
 	\begin{frame}{Flask sessions}
-		The session system allows us to store information about the user across multiple requests. \par
+		The session system allows the storage of information about the user across multiple requests. \par
 
-		We can also pass variables to the template which we will use while rendering the page. \par
+		Variables can also be passed to the template which are then used while rendering the page. \par
 
 		This can be demonstrated by creating a simple login system.
 	\end{frame}
@@ -124,7 +117,15 @@
 		user\_verified & tinyint & 1 & 0 \\
 		\hline
 		\end{tabular}
-		\end{frame}
+	\end{frame}
+
+	\begin{frame}{GDPR}
+		Email adresses of the users are not being saved (due to GDPR), but during the registration process, the users are required to provide an email address for verification purposes. So how is that achieved?\par
+
+		The email address is saved as a salted \texttt{SHA-256} hash. This way, the email address can we verified, but cannot be reverse engineered to obtain the original email address. \par
+
+		This also allows for password reset functionality, without the need to store the email address in a readable format. Users always need to provide the email address, which is then checked against the hash in the database.
+	\end{frame}
 
 		\begin{frame}{Submissions Table}
 			\centering
@@ -202,9 +203,11 @@ def get_user(username):
 		\section{Evaluation using QtRvSim}
 
 		\begin{frame}{Submission evaluation}
-			Each of the submissions is being evaluated by a \texttt{qtrvsim\_cli} python wrapper \href{https://gitlab.fel.cvut.cz/b35apo/qtrvsim-eval-web/-/blob/main/evaluator/qtrvsim.py}{\texttt{qtrvsim.py}}. \par
+			Each of the submissions is being evaluated by a \texttt{qtrvsim\_cli} python 
+			wrapper \href{https://gitlab.fel.cvut.cz/b35apo/qtrvsim-eval-web/-/blob/main/evaluator/qtrvsim.py}{\texttt{qtrvsim.py}}. \par
 	
-			For each task, there is a \texttt{.toml} file, which is parsed using an evaluator script. The parsed data is used to create a new QtRvSim instance, which evaluates all the testcases in the task file. \par
+			For each task, a \texttt{.toml} file defines its structure, this file is then parsed using an \texttt{evaluator.py} script. A new QtRvSim instance is initialized with needed parameters,
+			the instance evaluates all the testcases declared in the task file and measures the performance of the user's submission. \par
 	
 			The result, score, and the log is then displayed to the user.
 		\end{frame}
@@ -224,7 +227,7 @@ def get_user(username):
 
 			Serial input and output can also be used. \par
 
-			It is also possible, to create a task in \texttt{C}, but this also requires a custom Makefile to be provided in the taskfile. If custom files need to be present at compile time, they can also be added. \par
+			It is also possible, to create a task in \texttt{C}, but this also requires a custom Makefile to be provided in the taskfile. If custom files need to be present at compile time, they can also be provided. \par
 		\end{frame}
 
 		\begin{frame}[fragile]
@@ -248,7 +251,7 @@ def get_user(username):
 		
 		If two users finish with the same amount of cycles, their solution will be scored with the higher amount of points. \par
 
-		We offer FEE CTU merch for the best users, who submit their solutions before TODO:17.3. 13:00. \par
+		We offer FEE CTU merch for the best users overall, who submit their solutions before TODO:17.3. 13:00. \par
 	\end{frame}
 
 	\section{References}
@@ -260,7 +263,7 @@ def get_user(username):
 		{\centering \texttt{\href{http://comparch.edu.cvut.cz}{comparch.edu.cvut.cz}} \par}
 		{\centering \texttt{\href{https://github.com/cvut/qtrvsim}{QtRvSim repository}} \par}
 		{\centering \texttt{\href{https://gitlab.fel.cvut.cz/b35apo/qtrvsim-eval-web}{Web Eval repository}} \par}
-		{\centering \texttt{\href{https://github.com/kubakubakuba/if24-flask-web-eval}{Slides repository}} \par}
+		{\centering \texttt{\href{https://github.com/kubakubakuba/if24-flask-web-eval}{Slides with examples}} \par}
 		{\centering \texttt{\href{https://swpelc.eu}{Jakub Pelc}} \par}
 	\end{frame}
 

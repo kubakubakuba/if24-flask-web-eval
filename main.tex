@@ -1,7 +1,11 @@
 \documentclass{beamer}
 \usepackage{minted}
 \usepackage{hyperref}
+\usepackage{xcolor}
 \usetheme{metropolis}
+\definecolor{cvutblue}{RGB}{1,44,86} % Defining a custom color
+
+\setbeamercolor{palette primary}{bg=cvutblue,fg=white}
 \title{Flask web evaluation for QtRvSim}
 % March 16th 2024
 \date{16.3.2024}
@@ -10,14 +14,26 @@
 \begin{document}
 	\maketitle
 	\section{Goals of this project}
-	\begin{frame}{Flask}
-		The main aim of this project is to provide a way for students (and general public) to test their knowledge of the RISC-V assembly.
 
-		Registered users can submit solutions to the problems displayed on the frontpage and get immediate feedback on their solution.
-		The solution performance is measured (in cycles needed to execute the submission), and local scoreboard is displayed for each task.\par
+	\begin{frame}{Bonus task evaluation}
+		The main aim for this project is to allow external participants (as well as students) to improve their skills in computer architectures, by solving tasks in RISC-V assembly. \par
+
+		The original way involved students of \href{https://cw.fel.cvut.cz/wiki/courses/b35apo/en/start}{\texttt{B35APO}} solving a set of \href{https://cw.fel.cvut.cz/wiki/courses/b35apo/en/homeworks/bonus/start}{\texttt{bonus tasks}},
+		which were available to submit through GitLab and subsequently evaluated using \href{https://github.com/cvut/qtrvsim}{\texttt{QtRvSim}}. \par
+
+		This is unfortunately not available to the general public, and that is the reason why this project was created.
+	\end{frame}
+
+	\begin{frame}{Current state}
+		Registered users can register and submit solutions to the problems displayed on the frontpage and get immediate feedback on their solution.
+		Local scoreboard is displayed for each task.\par
+
+		This is done by running a local evaluation procedure (with the use of \href{https://github.com/cvut/qtrvsim}{\texttt{QtRvSim CLI}}), which evaluates the correctness of the code submitted and yields the performance as a score.
 
 		The project needed to be rather simple, for it to allow easy modularity and optional modification in the future. It can be expanded by
-		more features, language support, or task types.
+		more features, language support, or task types. \par
+		
+		This is why Flask was chosen as the web framework.
 	\end{frame}
 	
 	\begin{frame}{User interface}
@@ -209,7 +225,7 @@ def get_user(username):
 			Each of the submissions is being evaluated by a \texttt{qtrvsim\_cli} python 
 			wrapper \href{https://gitlab.fel.cvut.cz/b35apo/qtrvsim-eval-web/-/blob/main/evaluator/qtrvsim.py}{\texttt{qtrvsim.py}}. \par
 	
-			For each task, a \texttt{.toml} file defines its structure, this file is then parsed using an \texttt{evaluator.py} script. A new QtRvSim instance is initialized with needed parameters,
+			For each task, a \texttt{.toml} file defines its structure, this file is then parsed using an \href{https://gitlab.fel.cvut.cz/b35apo/qtrvsim-eval-web/-/blob/main/evaluator/evaluator.py}{\texttt{evaluator.py}} script. A new QtRvSim instance is initialized with needed parameters,
 			the instance evaluates all the testcases declared in the task file and measures the performance of the user's submission. \par
 	
 			The result, score, and the log are then displayed to the user.

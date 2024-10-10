@@ -8,7 +8,7 @@
 \setbeamercolor{palette primary}{bg=cvutblue,fg=white}
 \title{QtRVSim Web Evaluation}
 % March 16th 2024
-\date{10. 10. 2024}
+\date{10.10.2024}
 \author{Jakub Pelc}
 \institute{Faculty of Electrical Engineering, Czech Technical University in Prague}
 \begin{document}
@@ -53,23 +53,6 @@
 		PostgreSQL triggers are used to automatically update the best score and source code. 
 	\end{frame}
 
-	\begin{frame}{Users Table}
-		\centering
-		\begin{tabular}{|l|l|l|l|}
-		\hline
-		Field & Type & Length & Default \\
-		\hline
-		id & int & 32 & AUTO\_INCREMENT \\
-		username & varchar & 128 & None \\
-		password & varchar & 128 & None \\
-		email & varchar & 128 & None \\
-		salt & varchar & 128 & None \\
-		verification\_code & varchar & 128 & None \\
-		user\_verified & tinyint & 1 & 0 \\
-		\hline
-		\end{tabular}
-	\end{frame}
-
 	\begin{frame}{GDPR}
 		Email adresses of the users are not being saved (due to GDPR), but during the registration process, the users are required to provide an email address for verification purposes. So how is that achieved?\par
 
@@ -77,79 +60,6 @@
 
 		This also allows for password reset functionality, without the need to store the email address in a readable format. Users always need to provide the email address, which is then checked against the hash in the database.
 	\end{frame}
-
-		\begin{frame}{Submissions Table}
-			\centering
-			\begin{tabular}{|l|l|l|l|}
-			\hline
-			Field & Type & Length & Default \\
-			\hline
-			id & int & 64 & AUTO\_INCREMENT \\
-			userid & int & 64 & None \\
-			taskid & int & 64 & None \\
-			file & text & 64 & None \\
-			evaluated & tinyint & 1 & 0 \\
-			time & datetime & None & current\_timestamp() \\
-			\hline
-			\end{tabular}
-		\end{frame}
-
-		\begin{frame}{Results Table}
-			\small
-			\centering
-			\begin{tabular}{|l|l|l|}
-			\hline
-			Field & Type & Default \\
-			\hline
-			userid & bigint & PRIMARY \\
-			taskid & bigint & PRIMARY \\
-			result\_file & text & NULL \\
-			last\_source & text & NULL \\
-			best\_source & text & NULL \\
-			score\_last & integer & -1 \\
-			score\_best & integer & -1 \\
-			time & timestamp with time zone & CURRENT\_TIMESTAMP \\
-			result & smallint & -1 \\
-			\hline
-			\end{tabular}
-		\end{frame}
-
-		\begin{frame}[fragile]
-			\begin{minted}{python}
-import psycopg2
-import os
-
-db_config = {
-	'user': os.getenv('DB_USER'),
-	'password': os.getenv('DB_PASSWORD'),
-	'host': os.getenv('DB_HOST'),
-	'database': os.getenv('DB_DATABASE'),
-	'port': os.getenv('DB_PORT'),
-	'sslmode': 'require',
-	'connect_timeout': 10
-}
-			\end{minted}
-		\end{frame}
-
-		\begin{frame}[fragile]
-			\begin{minted}{python}
-
-def connect():
-	db = psycopg2.connect(**db_config)
-	cursor = db.cursor()
-	return (db, cursor)
-
-def get_user(username):
-  (db, cursor) = connect()
-  cursor.execute('SELECT password FROM \
-	users WHERE username = %s', (username,))
-  user = cursor.fetchone()
-  cursor.close()
-  db.close()
-  return user
-	
-			\end{minted}
-		\end{frame}
 
 		\section{Evaluation using QtRvSim}
 
